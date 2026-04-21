@@ -1,0 +1,112 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    //id "com.google.firebase.crashlytics"
+    //id "com.google.gms.google-services"
+}
+
+android {
+    namespace "com.yuriy.openradio.mobile"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.yuriy.openradio.mobile"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildTypes {
+        debug {
+            // 使用默认的 debug 签名
+        }
+        release {
+            // 暂时不配置签名，避免编译失败
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packagingOptions {
+        resources {
+            excludes += [
+                    'META-INF/DEPENDENCIES',
+                    'META-INF/LICENSE',
+                    'META-INF/NOTICE',
+                    'META-INF/LICENSE.md',
+                    'META-INF/NOTICE.md',
+                    'META-INF/ASL2.0',
+                    'META-INF/LGPL2.1'
+            ]
+        }
+    }
+
+    lint {
+        abortOnError = false
+    }
+}
+
+dependencies {
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+
+    // AndroidX
+    implementation "androidx.core:core-ktx:1.12.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.multidex:multidex:2.0.1"
+
+    // Material Design
+    implementation "com.google.android.material:material:1.10.0"
+
+    // ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.3.2"
+
+    // CardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    // SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // Media3 (ExoPlayer)
+    implementation "androidx.media3:media3-exoplayer:1.2.0"
+    implementation "androidx.media3:media3-session:1.2.0"
+    implementation "androidx.media3:media3-ui:1.2.0"
+
+    // Google Play Services
+    implementation "com.google.android.gms:play-services-cast-framework:21.1.0"
+
+    // Firebase Bill of Materials (自动管理版本)
+    //implementation platform('com.google.firebase:firebase-bom:32.2.3')
+    //implementation 'com.google.firebase:crashlytics-ktx'
+    //implementation 'com.google.firebase:analytics-ktx'
+
+    // 测试依赖 - 使用新的语法
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    testImplementation "junit:junit:4.13.2"
+
+    // Local modules
+    implementation project(':shared')
+    implementation project(':common')
+    implementation project(':common-ui')
+}
